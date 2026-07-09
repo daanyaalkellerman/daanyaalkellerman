@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import store from './store'
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import './assets/main.css'
@@ -26,8 +25,6 @@ const firebaseapp = initializeApp(firebaseConfig);
 const analytics = getAnalytics(firebaseapp);
 
 const app = createApp(App)
-
-app.use(store)
 
 app.use(VueGtag, {
   property: {

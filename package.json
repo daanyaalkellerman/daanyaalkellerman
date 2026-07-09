@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prebuild": "node scripts/update-sitemap.mjs",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "push-build-deploy": "git push && vue-cli-service build && firebase deploy"

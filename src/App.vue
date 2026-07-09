@@ -16,17 +16,7 @@ export default {
   computed:{
     isHomePath() {
       return window.location.pathname === '/' || window.location.pathname === '';
-    },
-    getProjects(){
-      return this.$store.dispatch("getProjects")
-    },
-    getSkills(){
-      return this.$store.dispatch("getSkills")
     }
-  },
-  mounted(){
-    this.getProjects
-    this.getSkills
   }
 }
 

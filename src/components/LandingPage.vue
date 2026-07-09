@@ -6,10 +6,12 @@
       :experience="experience"
       :skills="skills"
       :social-links="socialLinks"
+      :contact-cards="contactCards"
       :cv-url="cvUrl"
       :total-skill-items="totalSkillItems"
       :form="form"
-      :submitted="submitted"
+      :form-message="formMessage"
+      :submit-state="submitState"
       :submit-form="submitForm"
     />
 
@@ -56,25 +58,33 @@
         </div>
       </header>
 
-      <section id="about" class="min-h-screen flex items-center pt-28 sm:pt-32 relative">
+      <section
+        id="about"
+        class="min-h-screen flex items-center pt-28 pb-32 sm:pt-32 relative"
+      >
         <div
           class="max-w-7xl mx-auto px-4 sm:px-6 grid md:grid-cols-2 gap-14 md:gap-24 items-center"
         >
           <div>
+            <p
+              class="mb-5 text-[0.72rem] uppercase tracking-[0.38em] text-gray-500 dark:text-gray-400"
+            >
+              Mid-Level Full-Stack Developer
+            </p>
             <h1
               class="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-8 sm:mb-10"
             >
-              Engineering digital
+              Building production
               <span class="block text-gray-500 dark:text-gray-400">
-                experiences with impact.
+                systems for real teams.
               </span>
             </h1>
 
             <p
               class="text-gray-600 dark:text-gray-400 text-lg sm:text-xl max-w-xl mb-10 sm:mb-12"
             >
-              Full-Stack Developer building scalable applications with React, VueJs, PHP,
-              Node.js and modern backend architecture.
+              I design and ship product, platform, and internal tooling work across React,
+              Vue, Next.js, Node.js, PHP, and relational data systems.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 sm:items-center">
@@ -98,6 +108,7 @@
                 Let’s Talk →
               </a>
             </div>
+
           </div>
 
           <div
@@ -136,12 +147,13 @@
                 <p
                   class="text-[0.7rem] uppercase tracking-[0.35em] text-gray-500 dark:text-gray-400"
                 >
-                  Portfolio Highlights
+                  Selected Work
                 </p>
-                <h3 class="mt-4 text-4xl sm:text-5xl font-bold">Selected Work</h3>
+                <h3 class="mt-4 text-4xl sm:text-5xl font-bold">Case Studies</h3>
               </div>
               <p class="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-2xl">
-                Real-world systems built with scalability and performance in mind.
+                A tighter snapshot of how I approach product delivery, internal tooling,
+                and production frontend work.
               </p>
             </div>
           </div>
@@ -297,7 +309,8 @@
           <div class="mb-24 reveal">
             <h3 class="text-5xl font-bold mb-6">Experience</h3>
             <p class="text-gray-600 dark:text-gray-400 max-w-2xl">
-              Professional journey building high-impact digital systems.
+              A progression from structured training into agency delivery and then
+              mid-level ownership in production teams.
             </p>
           </div>
 
@@ -349,8 +362,8 @@
                   </p>
                   <h3 class="mt-4 text-5xl font-bold">Core Skills</h3>
                   <p class="mt-5 text-lg leading-8 text-gray-600 dark:text-gray-300">
-                    The tools and frameworks I rely on to design interfaces, ship product,
-                    and build dependable backends.
+                    The stack I rely on when the job spans interface quality, backend
+                    logic, data structure, and dependable release flow.
                   </p>
                 </div>
 
@@ -446,13 +459,35 @@
         class="pt-20 pb-24 sm:pt-24 sm:pb-28 md:pt-24 md:pb-40 border-t border-black/5 dark:border-white/5"
       >
         <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h3 class="text-5xl font-bold mb-8 reveal">
-            Let’s build something exceptional.
-          </h3>
+          <h3 class="text-5xl font-bold mb-8 reveal">Let’s build something useful.</h3>
 
           <p class="text-gray-600 dark:text-gray-400 mb-16 reveal">
-            Open to collaborations and innovative builds.
+            Available for product work, platform improvements, and internal tooling.
           </p>
+
+          <div class="mb-10 grid gap-4 text-left sm:grid-cols-3 reveal">
+            <div
+              v-for="card in contactCards"
+              :key="card.label"
+              class="rounded-[1.8rem] border border-black/10 bg-white/75 p-5 shadow-[0_18px_60px_-44px_rgba(15,23,42,0.3)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]"
+            >
+              <p
+                class="text-[0.65rem] uppercase tracking-[0.28em] text-gray-500 dark:text-gray-400"
+              >
+                {{ card.label }}
+              </p>
+              <a
+                v-if="card.href"
+                :href="card.href"
+                class="mt-3 block text-sm font-medium text-gray-800 transition hover:text-black dark:text-gray-100 dark:hover:text-white"
+              >
+                {{ card.value }}
+              </a>
+              <p v-else class="mt-3 text-sm font-medium text-gray-800 dark:text-gray-100">
+                {{ card.value }}
+              </p>
+            </div>
+          </div>
 
           <div class="mb-12 flex flex-wrap items-center justify-center gap-4 reveal">
             <a
@@ -515,13 +550,22 @@
 
             <button
               type="submit"
+              :disabled="submitState === 'loading'"
               class="w-full border border-black dark:border-white py-4 rounded-full uppercase tracking-widest text-xs hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition duration-300"
             >
-              Send Message
+              {{ submitState === "loading" ? "Sending..." : "Send Message" }}
             </button>
 
-            <p v-if="submitted" class="text-green-400 text-center mt-6">
-              Message sent successfully.
+            <p
+              v-if="formMessage"
+              class="text-center mt-6"
+              :class="
+                submitState === 'error'
+                  ? 'text-amber-500 dark:text-amber-300'
+                  : 'text-green-500 dark:text-green-400'
+              "
+            >
+              {{ formMessage }}
             </p>
           </form>
         </div>
@@ -533,7 +577,13 @@
 <script>
 import { computed, ref, onMounted, onUnmounted } from "vue";
 import MobileLandingPage from "./MobileLandingPage.vue";
-import projectPreview from "@/assets/images/projects/ATool.png";
+import {
+  contactDetails,
+  experience as experienceData,
+  projects as projectData,
+  skills as skillData,
+  socialLinks as socialLinkData,
+} from "@/data/portfolio";
 
 export default {
   name: "CinematicPortfolio",
@@ -546,24 +596,18 @@ export default {
     const isMobile = ref(false);
     const cvUrl = "/Daanyaal_Kellerman_CV.pdf";
 
+    const projects = ref(projectData.map((project) => ({ ...project, loaded: false })));
+    const experience = ref(experienceData);
+    const skills = ref(skillData);
+    const socialLinks = ref(socialLinkData);
+    const contactCards = ref(contactDetails);
     const form = ref({ name: "", email: "", message: "" });
-    const submitted = ref(false);
-    const socialLinks = ref([
-      {
-        label: "LinkedIn",
-        href: "https://www.linkedin.com/in/daanyaal-kellerman-1aba78300",
-        icon: "linkedin",
-      },
-      {
-        label: "GitHub",
-        href: "https://github.com/daanyaalkellerman",
-        icon: "github",
-      },
-    ]);
-
-    const theme = ref("system");
+    const submitState = ref("idle");
+    const formMessage = ref("");
     let colorSchemeQuery = null;
+    let mobileQuery = null;
     let themeTransitionTimeout = null;
+    let revealObserver = null;
 
     const applyTheme = () => {
       const root = document.documentElement;
@@ -576,116 +620,45 @@ export default {
       }, 450);
     };
 
-    const projects = ref([
-      {
-        title: "Personal - Asset Management System",
-        description:
-          "This is a personal project I built to manage a company's assets and expenses. It features a Vue.js frontend with a Node.js backend and a MariaDB database. The system allows me to track my investments, expenses, and overall net worth in one place.",
-        stack: ["Vue.js", "MariaDB", "Tailwind", "Firebase", "Render", "Node.js"],
-        category: "Finance Platform",
-        year: "2026",
-        highlights: [
-          "Tracks assets, expenses, investments, and net worth in one workflow.",
-          "Built with a dedicated backend and persistent relational data model.",
-        ],
-        image: projectPreview,
-        live: "https://assetmanagement-6c645.web.app/",
-        github: "",
-        loaded: false,
-      },
-    ]);
-
-    const experience = ref([
-      {
-        period: "July 2025 - Present",
-        role: "FutureRent - Mid-Level Developer",
-        description:
-          "Promoted to Mid-Level Developer after demonstrating strong technical leadership. Currently leading development on the main company website (www.futurerent.co.za) and multiple marketing campaigns. Responsible for architecting and implementing complex features while mentoring junior developers.",
-        highlights: ["React.js", "Vue.js", "Next.js", "Knex.js", "Team Leadership"],
-      },
-      {
-        period: "July 2024 - July 2025",
-        role: "FutureRent - Junior Developer",
-        description:
-          "Developed in-house applications designed to streamline workflows and enhance productivity across the organization. Contributed to multiple campaigns and worked on the core platform. Gained extensive experience with React, Next.js, and backend integration.",
-        highlights: [
-          "Professional Development",
-          "Full-stack Development",
-          "Team Collaboration",
-        ],
-      },
-      {
-        period: "March - July 2024",
-        role: "LC Studio - Web Development Intern",
-        description:
-          "Grew my professional skills as a web development intern at LC Studio. Worked on real client projects while continuing to expand knowledge of modern web development practices.",
-        highlights: ["Professional Development", "Client Work", "Team Collaboration"],
-      },
-      {
-        period: "2023 - 2024",
-        role: "Life Choices Coding Academy",
-        description:
-          "Discovered my passion for frontend development and built fullstack projects while mentoring fellow students. Recognized with multiple awards including Certificate of Excellence, Top Capstone Project, Top Student, and Top Overall Achiever.",
-        highlights: ["Fullstack Projects", "Academic Excellence", "Mentorship"],
-      },
-      {
-        period: "2019",
-        role: "Discovering My Passion - False Bay College",
-        description:
-          "My journey into tech began at False Bay College in 2019, where I first discovered my love for coding. This experience planted the seed for my career path in development.",
-        highlights: ["Foundational Skills", "Career Discovery", "Academic Foundation"],
-      },
-    ]);
-
-    const skills = ref([
-      {
-        category: "Frontend",
-        summary:
-          "Component-driven interfaces focused on performance, responsiveness, and maintainable design systems.",
-        items: ["React", "Next.js", "Vue", "Tailwind"],
-      },
-      {
-        category: "Backend",
-        summary:
-          "APIs and server-side architecture built for business workflows, integrations, and scalable logic.",
-        items: ["Node", "Express", "Knex", "PHP"],
-      },
-      {
-        category: "Database",
-        summary:
-          "Relational and document-based storage for products that need clear data modeling and reliable querying.",
-        items: ["MySQL", "PostgreSQL", "MongoDB"],
-      },
-      {
-        category: "Mobile",
-        summary:
-          "Cross-platform app development with shared product thinking and fast iteration across devices.",
-        items: ["React Native", "Expo"],
-      },
-    ]);
-
     const totalSkillItems = computed(() =>
       skills.value.reduce((sum, skill) => sum + skill.items.length, 0)
     );
 
     const submitForm = async () => {
-      const response = await fetch("https://formspree.io/f/xpwrlajv", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form.value),
-      });
+      submitState.value = "loading";
+      formMessage.value = "";
 
-      if (response.ok) {
-        submitted.value = true;
+      try {
+        const response = await fetch("https://formspree.io/f/xpwrlajv", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(form.value),
+        });
+
+        if (!response.ok) {
+          throw new Error("Request failed");
+        }
+
+        submitState.value = "success";
+        formMessage.value = "Message sent successfully.";
         form.value = { name: "", email: "", message: "" };
-        setTimeout(() => (submitted.value = false), 3000);
+        window.setTimeout(() => {
+          submitState.value = "idle";
+          formMessage.value = "";
+        }, 4000);
+      } catch (error) {
+        submitState.value = "error";
+        formMessage.value =
+          "Message failed to send. Use the email link below and I will reply there.";
       }
     };
 
     const scrollOffset = ref(0);
     const mouseX = ref(0);
     const mouseY = ref(0);
-    let mobileQuery = null;
 
     const updateTransform = () => {
       if (!heroImage.value) return;
@@ -701,10 +674,10 @@ export default {
       updateTransform();
     };
 
-    const handleHeroMove = (e) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+    const handleHeroMove = (event) => {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - 0.5;
+      const y = (event.clientY - rect.top) / rect.height - 0.5;
       mouseX.value = x * 10;
       mouseY.value = y * 10;
       updateTransform();
@@ -739,21 +712,24 @@ export default {
 
       window.addEventListener("scroll", handleScroll);
 
-      const observer = new IntersectionObserver(
+      revealObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) entry.target.classList.add("active");
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+            }
           });
         },
         { threshold: 0.1 }
       );
 
-      document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
     });
 
     onUnmounted(() => {
       window.removeEventListener("scroll", handleScroll);
       window.clearTimeout(themeTransitionTimeout);
+      revealObserver?.disconnect();
       if (mobileQuery?.removeEventListener) {
         mobileQuery.removeEventListener("change", syncViewportMode);
       } else if (mobileQuery?.removeListener) {
@@ -775,10 +751,11 @@ export default {
       experience,
       skills,
       socialLinks,
+      contactCards,
       form,
-      submitted,
+      formMessage,
+      submitState,
       submitForm,
-      theme,
       totalSkillItems,
       handleHeroMove,
       resetHero,

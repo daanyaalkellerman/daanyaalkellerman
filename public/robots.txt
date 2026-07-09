@@ -1,5 +1,6 @@
+# Permit crawling of the public portfolio.
 User-agent: *
 Allow: /
 
-Host: daanyaalkellerman.co.za
+# Primary sitemap for the canonical production domain.
 Sitemap: https://daanyaalkellerman.co.za/sitemap.xml

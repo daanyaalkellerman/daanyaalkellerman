@@ -21,14 +21,14 @@
         <p
           class="text-[0.7rem] uppercase tracking-[0.38em] text-gray-500 dark:text-gray-400"
         >
-          Full-Stack Developer
+          Mid-Level Full-Stack Developer
         </p>
         <h1 class="mt-5 text-4xl font-bold leading-tight">
-          Engineering digital experiences with impact.
+          Building production systems for real teams.
         </h1>
         <p class="mt-5 max-w-md text-base leading-7 text-gray-600 dark:text-gray-300">
-          Building scalable applications with React, Vue, Next.js, Node.js and modern
-          backend architecture.
+          I design and ship product, platform, and internal tooling work across React,
+          Vue, Next.js, Node.js, PHP, and relational data systems.
         </p>
 
         <div class="mt-8 flex flex-col gap-3">
@@ -71,11 +71,12 @@
         <p
           class="text-[0.7rem] uppercase tracking-[0.35em] text-gray-500 dark:text-gray-400"
         >
-          Portfolio Highlights
+          Selected Work
         </p>
-        <h2 class="mt-4 text-3xl font-bold">Selected Work</h2>
+        <h2 class="mt-4 text-3xl font-bold">Case Studies</h2>
         <p class="mt-4 text-sm leading-7 text-gray-600 dark:text-gray-300">
-          Real-world systems built with scalability and performance in mind.
+          A tighter snapshot of how I approach product delivery, internal tooling, and
+          production frontend work.
         </p>
 
         <div v-if="projects.length > 0" class="mt-8 space-y-6">
@@ -185,6 +186,10 @@
           Experience
         </p>
         <h2 class="mt-4 text-3xl font-bold">Professional Journey</h2>
+        <p class="mt-4 text-sm leading-7 text-gray-600 dark:text-gray-300">
+          A progression from structured training into agency delivery and then
+          mid-level ownership in production teams.
+        </p>
 
         <div class="mt-8 space-y-5">
           <article
@@ -219,8 +224,8 @@
           </p>
           <h2 class="mt-4 text-3xl font-bold">Core Skills</h2>
           <p class="mt-4 text-sm leading-7 text-gray-600 dark:text-gray-300">
-            A working stack built around modern interfaces, structured data, and scalable
-            product delivery.
+            The stack I rely on when the job spans interface quality, backend logic,
+            data structure, and dependable release flow.
           </p>
 
           <div class="mt-6 grid grid-cols-3 gap-3">
@@ -314,10 +319,34 @@
         >
           Contact
         </p>
-        <h2 class="mt-4 text-3xl font-bold">Let’s build something exceptional.</h2>
+        <h2 class="mt-4 text-3xl font-bold">Let’s build something useful.</h2>
         <p class="mt-4 text-sm leading-7 text-gray-600 dark:text-gray-300">
-          Open to collaborations and innovative builds.
+          Available for product work, platform improvements, and internal tooling.
         </p>
+
+        <div class="mt-6 space-y-3">
+          <div
+            v-for="card in contactCards"
+            :key="card.label"
+            class="rounded-[1.5rem] border border-black/10 bg-white/80 px-5 py-4 dark:border-white/10 dark:bg-white/[0.04]"
+          >
+            <p
+              class="text-[0.62rem] uppercase tracking-[0.26em] text-gray-500 dark:text-gray-400"
+            >
+              {{ card.label }}
+            </p>
+            <a
+              v-if="card.href"
+              :href="card.href"
+              class="mt-2 block text-sm font-medium text-gray-800 dark:text-gray-100"
+            >
+              {{ card.value }}
+            </a>
+            <p v-else class="mt-2 text-sm font-medium text-gray-800 dark:text-gray-100">
+              {{ card.value }}
+            </p>
+          </div>
+        </div>
 
         <div class="mt-8 flex flex-wrap gap-4">
           <a
@@ -380,13 +409,22 @@
 
           <button
             type="submit"
+            :disabled="submitState === 'loading'"
             class="w-full rounded-full border border-black py-4 text-xs uppercase tracking-[0.25em] transition hover:bg-black hover:text-white dark:border-white dark:hover:bg-white dark:hover:text-black"
           >
-            Send Message
+            {{ submitState === "loading" ? "Sending..." : "Send Message" }}
           </button>
 
-          <p v-if="submitted" class="text-center text-green-500 dark:text-green-400">
-            Message sent successfully.
+          <p
+            v-if="formMessage"
+            class="text-center"
+            :class="
+              submitState === 'error'
+                ? 'text-amber-500 dark:text-amber-300'
+                : 'text-green-500 dark:text-green-400'
+            "
+          >
+            {{ formMessage }}
           </p>
         </form>
       </section>
@@ -414,6 +452,10 @@ export default {
       type: Array,
       required: true,
     },
+    contactCards: {
+      type: Array,
+      required: true,
+    },
     cvUrl: {
       type: String,
       required: true,
@@ -426,8 +468,12 @@ export default {
       type: Object,
       required: true,
     },
-    submitted: {
-      type: Boolean,
+    formMessage: {
+      type: String,
+      required: true,
+    },
+    submitState: {
+      type: String,
       required: true,
     },
     submitForm: {
