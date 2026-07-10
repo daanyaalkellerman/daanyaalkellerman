@@ -15,7 +15,7 @@ export const projects = [
       "Tailwind CSS",
       "Chart.js",
       "Vite",
-      "Firebase Hosting"
+      "Firebase Hosting",
     ],
     category: "SaaS Platform",
     year: "2026",
