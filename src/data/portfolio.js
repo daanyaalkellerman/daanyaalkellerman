@@ -1,4 +1,4 @@
-import projectPreview from "@/assets/images/projects/SalesRepConnect";
+import projectPreview from "@/assets/images/projects/SalesRepConnect.png";
 
 export const projects = [
   {
