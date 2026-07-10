@@ -1,20 +1,32 @@
-import projectPreview from "@/assets/images/projects/ATool.png";
+import projectPreview from "@/assets/images/projects/SalesRepConnect";
 
 export const projects = [
   {
-    title: "Asset Management System",
+    title: "SalesRepConnect",
     description:
-      "A personal finance and asset operations platform built to track assets, expenses, investments, and net worth in one workflow.",
-    stack: ["Vue", "Node.js", "MariaDB", "Tailwind", "Firebase", "Render"],
-    category: "Internal Tooling",
+      "A SaaS platform built for sales teams to create digital business cards, manage agents, capture leads, track QR scans, and monitor performance through a centralized dashboard.",
+    stack: [
+      "Vue 3",
+      "TypeScript",
+      "Pinia",
+      "Vue Router",
+      "Firebase Authentication",
+      "Cloud Firestore",
+      "Tailwind CSS",
+      "Chart.js",
+      "Vite",
+      "Firebase Hosting",
+    ],
+    category: "SaaS Platform",
     year: "2026",
     highlights: [
-      "Designed a relational model for expenses, holdings, and asset history.",
-      "Connected a dedicated backend to persistent reporting workflows.",
-      "Built for day-to-day decision making rather than a static dashboard demo.",
+      "Built a full layered architecture with Vue components, Pinia stores, domain services, and Firebase infrastructure.",
+      "Implemented authentication, registration workflows, team management, role-based access control, and company-level multi-tenant data structure.",
+      "Created digital business cards with QR generation, scan tracking, public lead capture, and internal CRM dashboards for agents, leads, and analytics.",
+      "Designed the platform to help companies manage sales representatives, share professional digital contact experiences, and convert engagement into trackable leads.",
     ],
     image: projectPreview,
-    live: "https://assetmanagement-6c645.web.app/",
+    live: "https://salesrepconnect.web.app/",
     github: "",
   }
 ];
