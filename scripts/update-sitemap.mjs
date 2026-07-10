@@ -10,4 +10,5 @@ const updatedSitemap = sitemap.replace(
   `<lastmod>${today}</lastmod>`
 );
 
+
 writeFileSync(sitemapPath, updatedSitemap);
