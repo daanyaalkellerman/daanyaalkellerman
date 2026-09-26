@@ -58,10 +58,10 @@ export const projects = [
 
 export const experience = [
   {
-    period: "July 2025 - Present",
+    period: "July 2025 - July 2026",
     role: "FutureRent - Mid-Level Developer",
     description:
-      "Leading implementation across the main company website and supporting campaigns, with responsibility spanning feature architecture, delivery quality, and technical guidance for junior developers.",
+      "Led implementation across the main company website and supporting campaigns, with responsibility spanning feature architecture, delivery quality, and technical guidance for junior developers.",
   },
   {
     period: "July 2024 - July 2025",
