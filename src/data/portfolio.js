@@ -1,4 +1,5 @@
 import projectPreview from "@/assets/images/projects/SalesRepConnect.png";
+import gemsByWPreview from "@/assets/images/projects/GemsByW.png";
 
 export const projects = [
   {
@@ -28,6 +29,30 @@ export const projects = [
     image: projectPreview,
     live: "https://salesrepconnect.web.app/",
     github: "",
+  },
+  {
+    title: "GemsByW Website",
+    description:
+      "An e-commerce website for a jewelry brand, showcasing products, collections, and providing a seamless shopping experience."  ,
+    stack: [
+      "Vue 3",
+      "TypeScript",
+      "Pinia",
+      "Vue Router",
+      "Tailwind CSS",
+      "Vite",
+    ],
+    category: "E-commerce Website",
+    year: "2026",
+    highlights: [
+      "Designed and implemented a responsive layout using modern CSS frameworks.",
+      "Integrated product catalog and shopping cart functionality.",
+      "Implemented user authentication and order management features.",
+      "Optimized website performance and SEO for better visibility.",
+    ],
+    image: gemsByWPreview,
+    live: "https://gemsbyw.web.app/",
+    github: "https://github.com/daanyaalkellerman/gemsbyw-catalogue",
   }
 ];
 
