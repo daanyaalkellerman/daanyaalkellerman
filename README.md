@@ -52,22 +52,3 @@ I like building the useful stuff, but I also think the tiny touches are what mak
 <sub>Thanks for stopping by. Have a look around 👀</sub>
 
 </div>
-
----
-
-### About this repository
-
-This repo also contains my portfolio site. To run it locally:
-
-```bash
-npm install
-npm run serve
-```
-
-To build it for production:
-
-```bash
-npm run build
-```
-
-See the [Vue CLI configuration reference](https://cli.vuejs.org/config/) for configuration options.
